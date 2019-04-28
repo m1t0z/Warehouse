@@ -1,9 +1,13 @@
+#ifndef _WAREHOUSE_H
+#define _WAREHOUSE_H
+
 #include <cassert>
-#include <string>
-#include <mutex>
-#include <unordered_map>
 #include <map>
 #include <memory>
+#include <mutex>
+#include <string>
+#include <unordered_map>
+
 		
 //! Description of a single product item
 struct Product 
@@ -169,7 +173,7 @@ private:
 
   struct ProductWithMeta 
   {
-    ProductWithMeta(ProductPtr _pProduct): pProduct(_pProduct){}
+    explicit ProductWithMeta(ProductPtr _pProduct): pProduct(std::move(_pProduct)){}
 
     struct Meta 
     {
@@ -183,3 +187,4 @@ private:
   std::unordered_map<Product::Id, ProductWithMeta> mProductsWithMetasById;
 };
 
+#endif
